@@ -27,7 +27,7 @@ const UloadNFT = ({ uploadToIPFS, createNFT }) => {
   const [category, setCategory] = useState(0);
   const [properties, setProperties] = useState("");
   const [image, setImage] = useState(null);
-  const [summary, setSummary] = useState("");
+  const [summary, setSummary] = useState("Keine Zusammenfassung");
   const [maxGroupSize, setMaxGroupSize] = useState("8");
   const [difficulty, setDifficulty] = useState("");
   const [duration, setDuration] = useState("7 Tagen");
@@ -342,10 +342,10 @@ const UloadNFT = ({ uploadToIPFS, createNFT }) => {
               cols="1"
               rows="7"
               placeholder="something about yourself in few words"
-              onChange={(e) => setDescription(e.target.value)}></textarea>
+              onChange={(e) => setSummary(e.target.value)}></textarea>
             <p>
-              The description will be included on the item's detail page
-              underneath its image. Markdown syntax is supported.
+              Die Zusammenfassung wird auf der Detailseite des Artikels
+              angezeigt Die Markdown-Syntax wird unterstützt.
             </p>
           </div>
           <div className={formStyle.Form_box_input}>

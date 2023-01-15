@@ -58,7 +58,7 @@ const nftSchema = new mongoose.Schema(
     },
     summary: {
       type: String,
-      // required: [true, "A NFT muss provide the summary"],
+      required: [true, "A NFT muss provide the summary"],
       trim: true,
     },
     description: {

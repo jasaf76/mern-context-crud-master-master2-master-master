@@ -75,7 +75,9 @@ app.use("/api", limiter);
 
 
 //app.use(express.static(`${__basedir}/nft-data/img`));
-
+app.get('/analyze/:imageUrl', function (req, res) {
+ console.log('printing image url:' + req.params.imageUrl);
+})
 //Custom Middleware
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
