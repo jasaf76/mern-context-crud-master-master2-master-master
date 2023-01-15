@@ -13,7 +13,13 @@
     padding: 1rem;
     cursor: pointer;
 }
-
+.flex{
+    display: flex;
+    flex-wrap: wrap;
+     flex-direction: "row";
+     justify-content: space-between;
+     color:aquamarine
+}
 .upload_box_slider_box{
     display: flex;
     align-items: center;

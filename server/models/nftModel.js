@@ -21,7 +21,7 @@ const nftSchema = new mongoose.Schema(
     },
     maxGroupSize: {
       type: Number,
-      // required: [true, "Aktuelle Größe muss eine Gruppe Haben"],
+       required: [true, "Aktuelle Größe muss eine Gruppe Haben"],
     },
     difficulty: {
       type: String,

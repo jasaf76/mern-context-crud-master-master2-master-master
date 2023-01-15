@@ -15,7 +15,7 @@ import { Button } from "../components/componentsindex.js";
 import { DropZone } from "./uploadNFTIndex.js";
 
 //import { createNftRequest } from "../api/nfts.js";
- 
+
 const UloadNFT = ({ uploadToIPFS, createNFT }) => {
   const [price, setPrice] = useState("");
   const [active, setActive] = useState(0);
@@ -28,81 +28,79 @@ const UloadNFT = ({ uploadToIPFS, createNFT }) => {
   const [properties, setProperties] = useState("");
   const [image, setImage] = useState(null);
   const [summary, setSummary] = useState("");
-  const [maxGroupSize, setMaxGroupSize] = useState("");
+  const [maxGroupSize, setMaxGroupSize] = useState("8");
   const [difficulty, setDifficulty] = useState("");
   const [duration, setDuration] = useState("7 Tagen");
   const router = useRouter();
 
-   
+  const createNftRequest = async (
+    name,
+    price,
+    image,
+    description,
+    router,
+    website,
+    royalties,
+    fileSize,
+    category,
+    properties,
+    difficulty,
+    duration,
+    imageCover,
+    maxGroupSize,
+    ratingsAverage,
+    summary
+  ) => {
+    let data = {};
+    data.name = name;
+    data.price = price;
+    data.image = image;
+    data.description = description;
+    data.router = router;
+    data.website = website;
+    data.royalties = royalties;
+    data.fileSize = fileSize;
+    data.category = category;
+    data.properties = properties;
+    data.difficulty = difficulty;
+    data.duration = duration;
+    data.imageCover = imageCover;
+    data.maxGroupSize = maxGroupSize;
+    data.ratingsAverage = ratingsAverage;
+    data.duration = duration;
+    data.difficulty = difficulty;
 
-   const createNftRequest = async (
-     name,
-     price,
-     image,
-     description,
-     router,
-     website,
-     royalties,
-     fileSize,
-     category,
-     properties,
-     difficulty,
-     duration,
-     imageCover,
-     maxGroupSize,
-     ratingsAverage,
-     summary
-   ) => {
-     let data = {};
-     data.name = name;
-     data.price = price;
-     data.image = image;
-     data.description = description;
-     data.router = router;
-     data.website = website;
-     data.royalties = royalties;
-     data.fileSize = fileSize;
-     data.category = category;
-     data.properties = properties;
-     data.difficulty = difficulty;
-     data.duration = duration;
-     data.imageCover = imageCover;
-     data.maxGroupSize = maxGroupSize;
-     data.ratingsAverage = ratingsAverage;
-     data.duration = duration;
-     data.difficulty = difficulty;
+    setDefaultDuration(duration);
 
-     setDefaultDuration(duration);
-  
-     try {
-       const response = await axios.post(
-         "http://localhost:3033/api/v1/nfts",
-         data,
-         {
-           headers: {
-             "Content-Type": "application/json",
-           },
-         }
-       );
+    try {
+      const response = await axios.post(
+        "http://localhost:3033/api/v1/nfts",
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-       console.log(response.data.status);
-       if (response.data.status === "Success") {
-         // localStorage.setItem("token", response.data.token);
+      console.log(response.data.status);
+      if (response.data.status === "Success") {
+        // localStorage.setItem("token", response.data.token);
 
-         router.push("/");
-       }
-     } catch (error) {
-       if (error.response.status === 400) {
-         console.log(error.response.data);
-         for (let key in error.response.data) {
-           console.log(error.response.data[key].message);
-           // Show an error message to the user, indicating that the value is required
-         }
-       } else {
-         console.error(error);
-       }
-     }
-   };
+        router.push("/");
+      }
+    } catch (error) {
+      if (error.response.status === 400) {
+        console.log(error.response.data);
+        for (let key in error.response.data) {
+          console.log(error.response.data[key].message);
+          // Show an error message to the user, indicating that the value is required
+        }
+      } else {
+        console.error(error);
+      }
+    }
+  };
 
   const categoryArry = [
     {
@@ -308,7 +306,7 @@ const UloadNFT = ({ uploadToIPFS, createNFT }) => {
 
           <div className={formStyle.Form_box_input_social}>
             <div className={formStyle.Form_box_input}>
-              <div div className={formStyle.Form_box_input_box}>
+              <div className={formStyle.Form_box_input_box}>
                 <label htmlFor="Difficulty">Diffculty</label>
                 <select
                   name="difficulty"
@@ -320,32 +318,47 @@ const UloadNFT = ({ uploadToIPFS, createNFT }) => {
                   <option value="heavy">Hard</option>
                 </select>
               </div>
-              <div className={formStyle.Form_box_input}>
-                <label htmlFor="Price">Price</label>
-                <div className={formStyle.Form_box_input_box}>
-                  <div className={formStyle.Form_box_input_box_icon}>
-                    <AiTwotonePropertySafety />
-                  </div>
-                  <input
-                    type="text"
-                    placeholder="Price"
-                    onChange={(e) => setPrice(e.target.value)}
-                  />
-                </div>
+            </div>
+          </div>
+
+          <div className={formStyle.Form_box_input}>
+            <label htmlFor="Price">Price</label>
+            <div className={formStyle.Form_box_input_box}>
+              <div className={formStyle.Form_box_input_box_icon}>
+                <AiTwotonePropertySafety />
               </div>
-              <div className={formStyle.Form_box_input}>
-                <label htmlFor="duration">Duration</label>
-                <div className={formStyle.Form_box_input_box}>
-                  <div className={formStyle.Form_box_input_box_icon}>
-                    <AiTwotonePropertySafety />
-                  </div>
-                  <input
-                    type="text"
-                    placeholder="Duration"
-                    onChange={(e) => setDuration(e.target.value)}
-                  />
-                </div>
+              <input
+                type="text"
+                placeholder="Price"
+                onChange={(e) => setPrice(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className={formStyle.Form_box_input}>
+            <label htmlFor="summary">Summary</label>
+            <textarea
+              name=""
+              id=""
+              cols="1"
+              rows="7"
+              placeholder="something about yourself in few words"
+              onChange={(e) => setDescription(e.target.value)}></textarea>
+            <p>
+              The description will be included on the item's detail page
+              underneath its image. Markdown syntax is supported.
+            </p>
+          </div>
+          <div className={formStyle.Form_box_input}>
+            <label htmlFor="duration">Duration</label>
+            <div className={formStyle.Form_box_input_box}>
+              <div className={formStyle.Form_box_input_box_icon}>
+                <AiTwotonePropertySafety />
               </div>
+              <input
+                type="text"
+                placeholder="Duration"
+                onChange={(e) => setDuration(e.target.value)}
+              />
             </div>
           </div>
         </div>
